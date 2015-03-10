@@ -110,6 +110,9 @@
                 <li>We all fear change.</li>
               </ul>
             </section>
+          </section> <!-- id=tools -->
+
+          <section id="using-sensu">
 
             <section id="check-cmds">
               <h3>Sensu Plugins</h3>
@@ -141,28 +144,28 @@
               </ul>
               <pre class="split floatl">
                 <code class="json">
-                  # Server config
-                  {
-                  "checks": {
-                  "webserver": {
-                  "command": "checkweb :::name:::",
-                  "interval": 300,
-                  "subscribers": [ "web-check" ],
-                  "handlers": ["mailer"]
-                  }
-                  }
-                  }
+# Server config
+{
+  "checks": {
+    "webserver": {
+      "command": "checkweb :::name:::",
+      "interval": 300,
+      "subscribers": [ "web-check" ],
+      "handlers": ["mailer"]
+    }
+  }
+}
                 </code>
               </pre>
               <pre class="split floatr">
                 <code class="json">
-                  # client config
-                  {
-                  "client": {
-                  "name": "webserver.example.com",
-                  "subscriptions": ["web-check"],
-                  }
-                  }
+# client config
+{
+  "client": {
+    "name": "webserver.example.com",
+    "subscriptions": ["web-check"],
+  }
+}
 
 
 
@@ -180,19 +183,19 @@
               </ul>
               <pre>
                 <code class="json">
-                  # client config
-                  {
-                  "client": {
-                  "name": "webserver.example.com",
-                  // No need for 'subscriptions'
-                  }
-                  "checks": {
-                  "webserver": {
-                  "command": "check-http.rb"
-                  "interval": 300
-                  "standalone": true // replaces 'subscribers'
-                  }
-                  }
+# client config
+{
+  "client": {
+    "name": "webserver.example.com",
+    // No need for 'subscriptions'
+    }
+  "checks": {
+    "webserver": {
+    "command": "check-http.rb"
+    "interval": 300
+    "standalone": true // replaces 'subscribers'
+  }
+}
                 </code>
               </pre>
 
@@ -207,9 +210,9 @@
               </ul>
               <pre>
                 <code>
-                  echo '{ "name": "webserver", \
-                  "output": "Error: Web server not responding.", \
-                  "status": 2 }' | nc localhost 3030
+echo '{ "name": "webserver", \
+        "output": "Error: Web server not responding.", \
+        "status": 2 }' | nc localhost 3030
                 </code>
               </pre>
             </section>
@@ -222,25 +225,25 @@
               </ul>
               <pre>
                 <code>
-                  {
-                  "handlers": {
-                  "mailer": {
-                  "type": "pipe",
-                  "command": "/etc/sensu/handlers/notification/mailer.rb"
-                  }
-                  }
-                  }
-                  {
-                  "mailer": {
-                  "mail_to": "bob@example.com
-                  "smtp_address": "localhost",
-                  "smtp_port": "25",
-                  }
-                  }
+{
+"handlers": {
+  "mailer": {
+    "type": "pipe",
+    "command": "/etc/sensu/handlers/notification/mailer.rb"
+  }
+}
+
+{
+  "mailer": {
+    "mail_to": "bob@example.com
+    "smtp_address": "localhost",
+    "smtp_port": "25",
+  }
+}
                 </code>
               </pre>
             </section>
-          </section> <!-- id=tools -->
+          </section> <!-- id=using-sensu -->
 
         <section id="sensu-friends">
 
@@ -311,19 +314,19 @@
             </ul>
             <pre>
               <code>
-                {
-                "checks": {
-                "webserver": {
-                "command": "check-http.rb --server :::name:::"
-                "subscribers": ["webservers"],
-                "dependencies": [
-                "sensu.example.com/router_up",
-                "dns.example.com/dns_working"
-                ],
-                "handlers": ["mailer", "jabber"]
-                }
-                }
-                }
+{
+  "checks": {
+    "webserver": {
+      "command": "check-http.rb --server :::name:::"
+      "subscribers": ["webservers"],
+      "dependencies": [
+        "sensu.example.com/router_up",
+        "dns.example.com/dns_working"
+      ],
+      "handlers": ["mailer", "jabber"]
+    }
+  }
+}
               </code>
             </pre>
           </section>
@@ -336,20 +339,19 @@
             </ul>
             <pre>
               <code class="python">
-                sock = socket.socket()
-                buffer = serial.Serial('/dev/tty0')
-                sock.connect("localhost", 3030)
-                now = time.time()
+sock = socket.socket()
+buffer = serial.Serial('/dev/tty0')
+sock.connect("localhost", 3030)
+now = time.time()
 
-                while True:
-                data = "pdu.rack_6" + " " + buffer + " " + now
-                sock.send('{"name": "pdu-metrics",
+while True:
+    data = "pdu.rack_6" + " " + buffer + " " + now
+    sock.send('{"name": "pdu-metrics",
                 "output": {0},
                 "status": 0,
                 "type": "metric",
                 "handler": "influx"}'.format(data))
-                time.sleep(60)
-
+    time.sleep(60)
               </code>
             </pre>
           </section>
