@@ -1,10 +1,8 @@
 digraph monitoring {
 //Defaults
-overlap=scale
-splines=true
-sep=0.5
-compound=true
-node [labelloc=b]
+graph [overlap=scale, splines=true, sep=0.5, compound=true bgcolor=transparent]
+node [labelloc=b, fillcolor=white, style=filled, fontname="Helvetica", fontsize="16"]
+edge [fontcolor=lightgray, color=white, fontname="Helvetica", fontsize="16"]
 
 // Tools
 subgraph tools {
@@ -44,10 +42,10 @@ Checks->Servers [label="automatic repair", style="dotted"]
 // Processing
 subgraph processing {
 Logstash->Elasticsearch
-Elasticsearch->Kibana [dir="both"]
-Grafana->Elasticsearch [dir="both", style="dotted"]
-Influxdb->Grafana
-Logstash->Sensu [label="logs as events", style=dotted]
+Elasticsearch->Kibana [dir="both" label="data"]
+Grafana->Elasticsearch [label="config", dir="both"]
+Influxdb->Grafana [label="data"]
+Logstash->Sensu [label="logs as events"]
 Checks->Uchiwa [label="status"]
 }
 
