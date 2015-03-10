@@ -46,33 +46,127 @@
     <h3>Monitoring</h3>
     <ul>
       <li><em>Checks:</em> Is it working?</li>
-      <li><em>Alerts:</em> Did you know it isn't working?</li>
-      <li><em>Metrics:</em> What is it doing?</li>
+      <li><em>Alerts:</em> Do you know it isn't working?</li>
+      <li><em>Metrics:</em> What is/was it doing?</li>
     </ul>
   </section>
 
-  <section id="history">
-  <p>History of monitoring: blinkenlights, scripts, nagios etc</p>
-  </section>
-
   <section id="nagios">
-    <p>Nagios pros and cons</p>
-    <p>paraphrase: http://www.slideshare.net/superdupersheep/stop-using-nagios-so-it-can-die-peacefully</p>
+    <h3>Nagios</h3>
+    <p>Pros:</p>
+    <ul>
+      <li>Most popular monitoring system.</li>
+      <li>Tons of existing check plugins.</li>
+      <li>Been around for years.</li>
+    </ul>
+
+    <p>Cons:</p>
+    <ul>
+      <li>Incredibly horrible configuration.</li>
+      <li>Master-centric model.</li>
+      <li>Monolithic tool: lacking in APIs.</li>
+      <li>Doesn't scale well.</li>
+      <li>Really nasty UIs.</li>
+    </ul>
   </section>
 
   <section id="sensu">
     <section id="sensu-intro">
-      <img src="img/sensu-logo-sm.png"/>
-      <p>Explain what sensu is...</p>
-      <p>Pros</p>
+      <h3>Sensu</h3>
+      <p>Pros:</p>
+      <ul>
+        <li>Simple (JSON) configuration.</li>
+        <li>Subscription model/Client independence.</li>
+        <li>Good integration with other tools: nice APIs.</li>
+        <li>Nice(r) UIs</li>
+      </ul>
+
+      <p>Cons:</p>
+      <ul>
+        <li>Rapid (but slowing) development cycle</li>
+        <li>Different mindset:  may need a monitoring redesign</li>
+        <li>We all fear change.</li>
+      </ul>
     </section>
 
     <section id="checks">
-      <p>check examples</p>
+      <h3>Server-defined Checks</h3>
+      <ul>
+        <li>Check defined on the Server, advertised to all clients.</li>
+        <li>Associated with check 'subscriptions'.</li>
+        <li>Client config defines what checks to subscribe to.</li>
+      </ul>
+        <pre class="split floatl">
+          <code class="json">
+# Server config
+{
+  "checks": {
+    "webserver": {
+      "command": "check-http.rb"
+      "interval": 300
+      "subscribers": [ "web-check" ]
+    }
+  }
+}
+          </code>
+        </pre>
+        <pre class="split floatr">
+          <code class="json">
+# client config
+{
+  "client": {
+    "name": "webserver.example.com",
+    "subscriptions": ["web-check"]
+    }
+}
+
+
+
+          </code>
+        </pre>
     </section>
 
-    <section id="clients">
-      <p>nc localhost:3030</p>
+    <section id="standalone">
+      <h3>Standalone Checks</h3>
+      <ul>
+        <li>Check defined on the client.</li>
+        <li>Server simply handles incoming check data.</li>
+        <li>No check definition required on the server.</li>
+      </ul>
+        <pre>
+          <code class="json">
+# client config
+{
+  "client": {
+    "name": "webserver.example.com",
+    // No need for 'subscriptions'
+    }
+  "checks": {
+    "webserver": {
+      "command": "check-http.rb"
+      "interval": 300
+      "standalone": true // replaces 'subscribers'
+  }
+}
+          </code>
+        </pre>
+
+    </section>
+
+
+    <section id="client-port">
+      <h3>Local client port</h3>
+      <ul>
+        <li>sensu client listens for event JSON on localhost:3030</li>
+        <li>client hostname, timestamp, etc set by sensu client</li>
+      </ul>
+      <pre>
+        <code>
+echo '{ "name": "webserver", \
+        "output": "Error: Web server not responding.", \
+        "status": 2 }' | nc localhost 3030
+        </code>
+      </pre>
     </section>
 
   </section>
@@ -80,7 +174,7 @@
   <section id="sensu-friends">
 
     <section id="friends">
-      <p>Friends intro</p>
+      <h3>... &amp; Friends</h3>
     </section>
 
     <section id="sensu-flow">
