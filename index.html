@@ -287,16 +287,63 @@ echo '{ "name": "webserver", \
     </section>
 
     <section id="simple-checks">
-      <p>'local' checks</p>
-      <p>'remote' checks</p>
+      <h3>Shared Checks</h3>
+      <ul>
+        <li>Web servers check they are serving web pages.</li>
+        <li>Errors are ignored if routing or dns are failing.</li>
+      </ul>
+      <pre>
+        <code>
+{
+  "checks": {
+    "webserver": {
+      "command": "check-http.rb --server :::name:::"
+      "subscribers": ["webservers"],
+      "dependencies": [
+        "sensu.example.com/router_up",
+        "dns.example.com/dns_working"
+      ],
+      "handlers": ["mailer", "jabber"]
+    }
+  }
+}
+        </code>
+      </pre>
     </section>
 
     <section id="pdu-checks">
-      <p>pdu script -> localhost:3030</p>
+      <h3>'Direct' Checks</h3>
+      <ul>
+        <li>Query PDU bars power draw via a serial port.</li>
+        <li>Send the power metrics to influxdb.</li>
+      </ul>
+      <pre>
+        <code class="python">
+          sock = socket.socket()
+          buffer = serial.Serial('/dev/tty0')
+          sock.connect("localhost", 3030)
+          now = time.time()
+
+          while True:
+              data = "pdu.rack_6" + " " + buffer + " " + now
+              sock.send('{"name": "pdu-metrics",
+                          "output": {0},
+                          "status": 0,
+                          "type": "metric",
+                          "handler": "influx"}'.format(data))
+              time.sleep(60)
+
+        </code>
+      </pre>
     </section>
 
     <section id="logstash-checks">
-      <p>metrics + interval = alert -> sensu</p>
+      <h3>Logstash logs become alerts</h3>
+      <ul>
+        <li>Alert when a certain log message is seen.</li>
+        <li>Alert when 'X repeats of message Y seen in Z minutes'</li>
+        <li>Alert by writing event JSON to localhost:3030</li>
+      </ul>
     </section>
 
   </section> <!-- id=real-world -->
