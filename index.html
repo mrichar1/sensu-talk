@@ -198,6 +198,32 @@ echo '{ "name": "webserver", \
       </pre>
     </section>
 
+    <section id="handling">
+      <h3>Event Handling</h3>
+      <ul>
+        <li>Event data is passed to handlers associated with checks.</li>
+        <li>Handler sends an alert (email, sms, jabber etc).</li>
+      </ul>
+      <pre>
+        <code>
+{
+  "handlers": {
+    "mailer": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/notification/mailer.rb"
+    }
+  }
+}
+{
+  "mailer": {
+      "mail_to": "bob@example.com
+      "smtp_address": "localhost",
+      "smtp_port": "25",
+  }
+}
+        </code>
+      </pre>
+    </section>
   </section>
 
   <section id="sensu-friends">
