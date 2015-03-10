@@ -43,34 +43,34 @@
   </section>
 
   <section id="monitoring">
-    <h3>Monitoring</h3>
-    <ul>
-      <li><em>Checks:</em> Is it working?</li>
-      <li><em>Alerts:</em> Do you know it isn't working?</li>
-      <li><em>Metrics:</em> What is/was it doing?</li>
-    </ul>
-  </section>
+    <section id="what-is-monitoring">
+      <h3>Monitoring</h3>
+      <ul>
+        <li><em>Checks:</em> Is it working?</li>
+        <li><em>Alerts:</em> Do you know it isn't working?</li>
+        <li><em>Metrics:</em> What is/was it doing?</li>
+      </ul>
+    </section>
 
-  <section id="nagios">
-    <h3>Nagios</h3>
-    <p>Pros:</p>
-    <ul>
-      <li>Most popular monitoring system.</li>
-      <li>Tons of existing check plugins.</li>
-      <li>Been around for years.</li>
-    </ul>
+    <section id="nagios">
+      <h3>Nagios</h3>
+      <p>Pros:</p>
+      <ul>
+        <li>Most popular monitoring system.</li>
+        <li>Tons of existing check plugins.</li>
+        <li>Been around for years.</li>
+      </ul>
 
-    <p>Cons:</p>
-    <ul>
-      <li>Incredibly horrible configuration.</li>
-      <li>Master-centric model.</li>
-      <li>Monolithic tool: lacking in APIs.</li>
-      <li>Doesn't scale well.</li>
-      <li>Really nasty UIs.</li>
-    </ul>
-  </section>
+      <p>Cons:</p>
+      <ul>
+        <li>Incredibly horrible configuration.</li>
+        <li>Master-centric model.</li>
+        <li>Monolithic tool: lacking in APIs.</li>
+        <li>Doesn't scale well.</li>
+        <li>Really nasty UIs.</li>
+      </ul>
+    </section>
 
-  <section id="sensu">
     <section id="sensu-intro">
       <h3>Sensu</h3>
       <p>Pros:</p>
@@ -83,14 +83,14 @@
 
       <p>Cons:</p>
       <ul>
-        <li>Rapid (but slowing) development cycle</li>
-        <li>Different mindset:  may need a monitoring redesign</li>
+        <li>Rapid (but slowing) development cycle.</li>
+        <li>Different mindset:  may need a monitoring redesign.</li>
         <li>We all fear change.</li>
       </ul>
     </section>
 
     <section id="checks">
-      <h3>Server-defined Checks</h3>
+      <h3>Server-defined Checks.</h3>
       <ul>
         <li>Check defined on the Server, advertised to all clients.</li>
         <li>Associated with check 'subscriptions'.</li>
@@ -127,7 +127,7 @@
     </section>
 
     <section id="standalone">
-      <h3>Standalone Checks</h3>
+      <h3>Standalone Checks.</h3>
       <ul>
         <li>Check defined on the client.</li>
         <li>Server simply handles incoming check data.</li>
@@ -155,10 +155,10 @@
 
 
     <section id="client-port">
-      <h3>Local client port</h3>
+      <h3>Local client port.</h3>
       <ul>
-        <li>sensu client listens for event JSON on localhost:3030</li>
-        <li>client hostname, timestamp, etc set by sensu client</li>
+        <li>sensu client listens for event JSON. <em>(localhost:3030)</em></li>
+        <li>client hostname, timestamp, etc set by sensu client.</li>
       </ul>
       <pre>
         <code>
@@ -183,25 +183,52 @@ echo '{ "name": "webserver", \
     </section>
 
     <section id="uchiwa">
-      <p>Uchiwa intro</p>
+      <h3>Uchiwa</h3>
+      <p>Sensu's Dashboard.</p>
+      <ul>
+        <li>Event summary.</li>
+        <li>Client summary.</li>
+        <li>Check silencing.</li>
+      </ul>
     </section>
 
-    <section id="logstash">
-      <p>logstash intro</p>
+    <section id="logstash-es-kibana">
+      <h3>Logstash &amp; Elasticsearch &amp; Kibana</h3>
+      <p>Centralised Logging and Indexing.</p>
+      <ul>
+        <li>Logstash - collect and parse logs.</li>
+        <li>Elasticsearch - store logs as structured data.</li>
+        <li>Kibana - Web UI for log analysis.</li>
+      </ul>
     </section>
 
-    <section id="influxdb &amp; grafana">
-      <p>explain what grafana is - influxdb</p>
+    <section id="influxdb-grafana">
+      <h3>InfluxDB &amp; Grafana</h3>
+      <p>Metrics Collection and Analysis.</p>
+      <ul>
+        <li>InfluxDB - Time-Series Database.</li>
+        <li>Grafana - Web UI for graphing data.</li>
+      </ul>
     </section>
 
     <section id="flapjack">
-      <p>flapjack - handling on steroids</p>
+      <h3>Flapjack</h3>
+      <p>Advanced Event Handling</p>
+      <ul>
+        <li>Dashboard for event monitoring and control.</li>
+        <li>Notification based on a 'matrix' of users, contact methods and notification rules.</li>
+        <ul>
+          <li><em>Send all alerts to Bob by SMS during the week, email at weekends.</em></li>
+          <li><em>Send webserver alerts by email to everyone once Bob has been SMS'ed 3 times.</em></li>
+          <li>'Roll up' associated events into a single email.</li>
+          </ul>
+      </ul>
     </section>
   </section>
 
   <section id="eng-uses">
     <section id="eng-intro">
-      <p>Real-world examples</p>
+      <h3>Real-world Examples</h3>
     </section>
 
     <section id="simple-checks">
