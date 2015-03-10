@@ -123,12 +123,12 @@
               </ul>
               <p class="left">Checks:</p>
               <ul>
-                <li>Exit code is key (output is optional).</li>
+                <li>Exit code is important (output is optional).</li>
                 <li>Event usually not handled unless exit code != 0</li>
               </ul>
               <p class="left">Metrics:</p>
               <ul>
-                <li>Output is key: <strong>&lt;metric_name&gt; &lt;value&gt; &lt;time&gt;</strong></li>
+                <li>Output is important: <strong>&lt;metric_name&gt; &lt;value&gt; &lt;time&gt;</strong></li>
                 <li>Event usually not handled unless exit code == 0</li>
                 <li><strong>"type": "metric"</strong> in check config.</li>
               </ul>
@@ -339,9 +339,10 @@ echo '{ "name": "webserver", \
             </ul>
             <pre>
               <code class="python">
+import socket, serial, time
 sock = socket.socket()
-buffer = serial.Serial('/dev/tty0')
-sock.connect("localhost", 3030)
+buffer = serial.Serial('/dev/ttyS0')
+sock.connect(("localhost", 3030))
 now = time.time()
 
 while True:
@@ -369,7 +370,7 @@ while True:
             <h3>Sensu events become logstash logs</h3>
             <ul>
               <li>Event JSON sent to logstash.</li>
-              <li>Logstash filters to only store the 'first' and 'last event.</li>
+              <li>Logstash filters to only store the 'first' and 'last' event.</li>
               <li>Provides history of failure, frequencies, patterns.</li>
             </ul>
           </section>
