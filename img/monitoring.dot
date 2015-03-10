@@ -20,7 +20,7 @@ Uchiwa [label="Uchiwa\n(Event GUI)", shape="rectangle",fillcolor="tomato", style
 //Sources
 subgraph sources {
 Servers [label="Servers", shape="rectangle", fillcolor="lightblue", style="filled"]
-inputs [label="Log Inputs\n(syslog,json,email..."]
+inputs [label="Log Inputs\n(syslog,json,email...)"]
 Servers->inputs [label="log messages"]
 Servers->Sensu [xlabel="check results"]
 inputs->Logstash [label="log messages"]
