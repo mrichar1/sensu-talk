@@ -1,0 +1,22 @@
+.reveal section img {
+border: 0px;
+//background: transparent;
+}
+
+.reveal .fullimg {
+height: 95%;
+width: auto;
+border: 0px;
+background: transparent;
+ }
+
+/* Brighter default font colour */
+.reveal {
+color: #eee8d5;
+ }
+
+/* Strikethrough text */
+.strike {
+text-decoration: line-through;
+color: #aaa8a5
+}
