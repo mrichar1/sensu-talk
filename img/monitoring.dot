@@ -1,0 +1,54 @@
+digraph monitoring {
+//Defaults
+overlap=scale
+splines=true
+sep=0.5
+compound=true
+node [labelloc=b]
+
+// Tools
+subgraph tools {
+Sensu [label="Sensu\n(Monitoring)", shape="rectangle",fillcolor="limegreen", style="filled"]
+Logstash [label="Logstash\n(Log Processing)", shape="rectangle", fillcolor="limegreen", style="filled"]
+Elasticsearch [label="Elasticsearch\n(log DB)", shape="rectangle", fillcolor="deepskyblue", style="filled"]
+Kibana [label="Kibana\n(Log GUI)", shape="rectangle", fillcolor="tomato", style="filled"]
+Grafana [label="Grafana\n(Graph GUI)", shape="rectangle", fillcolor="tomato", style="filled"]
+Influxdb [label="Influxdb\n(Time-series DB)", shape="rectangle", fillcolor="deepskyblue", style="filled"]
+Uchiwa [label="Uchiwa\n(Event GUI)", shape="rectangle",fillcolor="tomato", style="filled"]
+}
+
+//Sources
+subgraph sources {
+Servers [label="Servers", shape="rectangle", fillcolor="lightblue", style="filled"]
+inputs [label="Log Inputs\n(syslog,json,email..."]
+Servers->inputs [label="log messages"]
+Servers->Sensu [xlabel="check results"]
+inputs->Logstash [label="log messages"]
+
+}
+
+// Notifications
+subgraph notify {
+// Notifications
+Alerts [label="Alerts\n(Email,Jabber,...)"]
+Flapjack [label="Flapjack\n(Event Handling)", shape="rectangle",fillcolor="limegreen", style="filled"]
+Sensu->Checks
+Sensu->Metrics
+Sensu->Logstash [label="logs of events"]
+Metrics->Influxdb [label="metrics"]
+Checks->Flapjack [label="notifications", style="dotted"]
+Flapjack->Alerts [style="dotted"]
+Checks->Servers [label="automatic repair", style="dotted"]
+}
+
+// Processing
+subgraph processing {
+Logstash->Elasticsearch
+Elasticsearch->Kibana [dir="both"]
+Grafana->Elasticsearch [dir="both", style="dotted"]
+Influxdb->Grafana
+Logstash->Sensu [label="logs as events", style=dotted]
+Checks->Uchiwa [label="status"]
+}
+
+} //digraph
