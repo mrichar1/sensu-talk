@@ -121,6 +121,7 @@
         <li>Check defined on the Server, advertised to all clients.</li>
         <li>Associated with check 'subscriptions'.</li>
         <li>Client config defines what checks to subscribe to.</li>
+        <li>Macro variables for easier check re-use.</li>
       </ul>
         <pre class="split floatl">
           <code class="json">
@@ -128,9 +129,10 @@
 {
   "checks": {
     "webserver": {
-      "command": "check-http.rb"
-      "interval": 300
-      "subscribers": [ "web-check" ]
+      "command": "checkweb :::name:::",
+      "interval": 300,
+      "subscribers": [ "web-check" ],
+      "handlers": ["mailer"]
     }
   }
 }
