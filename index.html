@@ -61,7 +61,7 @@
       <h3>Nagios</h3>
       <p class="left">Pros:</p>
       <ul>
-        <li>Most popular monitoring system.</li>
+        <li>Most widely-used monitoring system.</li>
         <li>Tons of existing check plugins.</li>
         <li>Been around for years.</li>
       </ul>
@@ -73,6 +73,7 @@
         <li>Monolithic tool: lacking in APIs.</li>
         <li>Doesn't scale well.</li>
         <li>Really nasty UIs.</li>
+        <li>Stockholm syndrome?</li>
       </ul>
     </section>
 
@@ -83,7 +84,7 @@
         <li>Simple (JSON) configuration.</li>
         <li>Subscription model/Client independence.</li>
         <li>Good integration with other tools: nice APIs.</li>
-        <li>Nice(r) UIs</li>
+        <li>Nice(r) UIs.</li>
       </ul>
 
       <p class="left">Cons:</p>
@@ -95,7 +96,7 @@
     </section>
 
     <section id="checks">
-      <h3>Server-defined Checks.</h3>
+      <h3>Server-defined Checks</h3>
       <ul>
         <li>Check defined on the Server, advertised to all clients.</li>
         <li>Associated with check 'subscriptions'.</li>
@@ -121,9 +122,10 @@
 {
   "client": {
     "name": "webserver.example.com",
-    "subscriptions": ["web-check"]
+    "subscriptions": ["web-check"],
     }
 }
+
 
 
 
@@ -132,7 +134,7 @@
     </section>
 
     <section id="standalone">
-      <h3>Standalone Checks.</h3>
+      <h3>Standalone Checks</h3>
       <ul>
         <li>Check defined on the client.</li>
         <li>Server simply handles incoming check data.</li>
@@ -160,7 +162,7 @@
 
 
     <section id="client-port">
-      <h3>Local client port.</h3>
+      <h3>External Result Input</h3>
       <ul>
         <li>sensu client listens for event JSON. <em>(localhost:3030)</em></li>
         <li>client hostname, timestamp, etc set by sensu client.</li>
@@ -218,7 +220,7 @@ echo '{ "name": "webserver", \
 
     <section id="flapjack">
       <h3>Flapjack</h3>
-      <p>Advanced Event Handling</p>
+      <p>Advanced Event Handling.</p>
       <ul>
         <li>Dashboard for event monitoring and control.</li>
         <li>Notification based on a 'matrix' of users, contact methods and notification rules.</li>
@@ -231,8 +233,8 @@ echo '{ "name": "webserver", \
     </section>
   </section>
 
-  <section id="eng-uses">
-    <section id="eng-intro">
+  <section id="real-world">
+    <section id="real-intro">
       <h3>Real-world Examples</h3>
     </section>
 
@@ -248,7 +250,8 @@ echo '{ "name": "webserver", \
     <section id="logstash-checks">
       <p>metrics + interval = alert -> sensu</p>
     </section>
-  </section>
+
+  </section> <!-- id=real-world -->
 
 	<section id="questions">
       <h2>Any Questions?</h2>
