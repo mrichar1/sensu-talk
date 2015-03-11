@@ -166,7 +166,7 @@
 {
   "client": {
     "name": "webserver.example.com",
-    "subscriptions": ["web-check"],
+    "subscriptions": ["web-check"]
   }
 }
 
@@ -189,14 +189,15 @@
 # client config
 {
   "client": {
-    "name": "webserver.example.com",
-    // No need for 'subscriptions'
-    }
+    "name": "webserver.example.com"
+    # No need for 'subscriptions'
+  },
   "checks": {
     "webserver": {
-    "command": "check-http.rb"
-    "interval": 300
-    "standalone": true // replaces 'subscribers'
+      "command": "check-http.rb",
+        "interval": 300,
+        "standalone": true  # replaces 'subscribers'
+    }
   }
 }
                 </code>
@@ -229,18 +230,16 @@ echo '{ "name": "webserver", \
               <pre>
                 <code>
 {
-"handlers": {
+  "handlers": {
+    "mailer": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/notification/mailer.rb"
+    }
+  },
   "mailer": {
-    "type": "pipe",
-    "command": "/etc/sensu/handlers/notification/mailer.rb"
-  }
-}
-
-{
-  "mailer": {
-    "mail_to": "bob@example.com
+    "mail_to": "bob@example.com",
     "smtp_address": "localhost",
-    "smtp_port": "25",
+    "smtp_port": "25"
   }
 }
                 </code>
@@ -320,7 +319,7 @@ echo '{ "name": "webserver", \
 {
   "checks": {
     "webserver": {
-      "command": "check-http.rb --server :::name:::"
+      "command": "check-http.rb --server :::name:::",
       "subscribers": ["webservers"],
       "dependencies": [
         "sensu.example.com/router_up",
