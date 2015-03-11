@@ -2,7 +2,7 @@ digraph monitoring {
 //Defaults
 graph [overlap=scale, splines=true, sep=0.5, compound=true bgcolor=transparent]
 node [labelloc=b, fillcolor=white, style=filled, fontname="Helvetica", fontsize="16"]
-edge [fontcolor=lightgray, color=white, fontname="Helvetica", fontsize="16"]
+edge [fontcolor=white, color=white, fontname="Helvetica", fontsize="16"]
 
 // Tools
 subgraph tools {
