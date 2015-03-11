@@ -62,14 +62,14 @@
           <section id="tools">
 
             <section id="history">
-              <h3>History</h3>
+              <h3>Our Monitoring History</h3>
               <ul>
-                <li>Nagios for monitoring some services 'remotely'.</li>
+                <li>Nagios for monitoring some services.</li>
                 <li>Output from cron, other scripts - no structure.</li>
                 <li>All generating emails - lots of false-positives.</li>
-                <li>Central logging - but no automated analysis.</li>
+                <li>Some central logging - but no automated analysis.</li>
                 <li>Sporadic metrics gathering (ganglia, cacti).</li>
-                <li>Easy to forget to monitor something new.</li>
+                <li>Always forgetting to monitor new services.</li>
               </ul>
             </section>
 
@@ -85,7 +85,7 @@
               <p class="left">Cons:</p>
               <ul>
                 <li>Incredibly horrible configuration.</li>
-                <li>Master-centric model.</li>
+                <li>'Master'-centric model.</li>
                 <li>Monolithic tool: lacking in APIs.</li>
                 <li>Doesn't scale well.</li>
                 <li>Really nasty UIs.</li>
@@ -100,13 +100,15 @@
                 <li>Simple (JSON) configuration.</li>
                 <li>Subscription model/Client independence.</li>
                 <li>Good integration with other tools: nice APIs.</li>
+                <li>Scales well.</li>
                 <li>Nice(r) UIs.</li>
               </ul>
 
-              <p class="left">Cons:</p>
+              <p class="left">Cons(?):</p>
               <ul>
                 <li>Rapid (but slowing) development cycle.</li>
                 <li>Different mindset:  may need a monitoring redesign.</li>
+                <li>Ideally needs configuration management.</li>
                 <li>We all fear change.</li>
               </ul>
             </section>
@@ -120,8 +122,9 @@
             <section id="check-cmds">
               <h3>Sensu Plugins</h3>
               <ul>
+                <li>Community library of plugins, using a ruby helper module</li>
                 <li>Can be written in any language... reuse Nagios plugins!</li>
-                <li>STDOUT is used as check output message.</li>
+                <li>STDOUT is used as event message.</li>
                 <li>Exit code: 0 = OK, 1= WARN, 2=ERROR, >3=UNKNOWN</li>
               </ul>
               <p class="left">Checks:</p>
