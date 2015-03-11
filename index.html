@@ -336,6 +336,44 @@ echo '{ "name": "webserver", \
             </pre>
           </section>
 
+          <section id="aggregates">
+            <h3>Aggregate Checks</h3>
+            <ul>
+              <li>Checks aren't handled directly - their events are combined</li>
+              <li>A second check queries the API for aggregate state.</li>
+              <li>This second event is then handled.</li>
+            </ul>
+            <p class="left">Alert if >80% of webservers are down:</p>
+            <pre class="split floatl">
+              <code class="json">
+{
+  "checks": {
+    "web": {
+      "command": "checkweb :::name:::",
+      "aggregate": true,
+      "handle": false
+    }
+  }
+}
+
+              </code>
+            </pre>
+            <pre class="split floatr">
+              <code class="json">
+{
+  "checks": {
+    "web_aggregate": {
+      "command": "aggregate -c web \
+                  --critical 80",
+      "handlers": ["mailer"]
+
+    }
+  }
+}
+              </code>
+            </pre>
+          </section>
+
           <section id="pdu-checks">
             <h3>'Direct' Checks</h3>
             <ul>
