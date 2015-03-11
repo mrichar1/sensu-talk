@@ -402,6 +402,10 @@ while True:
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+      keyboard: {
+      // zero will switch between current slide and flow chart
+      48: function() {jumpSlide()},
+      },
       controls: true,
       progress: false,
       history: true,
@@ -419,6 +423,17 @@ while True:
       { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
       ]
       });
+      function jumpSlide() {
+        slide = Reveal.getCurrentSlide();
+        if (slide.id == "sensu-flow") {
+          Reveal.slide(orig['h'], orig['v'])
+        }
+        else {
+          orig = Reveal.getIndices();
+          jump = Reveal.getIndices(document.getElementById("sensu-flow"));
+          Reveal.slide(jump['h'], jump['v']);
+        }
+      }
     </script>
 
 
