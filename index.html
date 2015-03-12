@@ -197,7 +197,7 @@
   },
   "checks": {
     "webserver": {
-      "command": "check-http.rb",
+      "command": "checkweb",
         "interval": 300,
         "standalone": true  # replaces 'subscribers'
     }
@@ -321,7 +321,7 @@ echo '{ "name": "webserver", \
 {
   "checks": {
     "webserver": {
-      "command": "check-http.rb --server :::name:::",
+      "command": "checkweb :::name:::",
       "subscribers": ["webservers"],
       "dependencies": [
         "sensu.example.com/router_up",
